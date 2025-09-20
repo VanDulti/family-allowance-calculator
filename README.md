@@ -1,4 +1,8 @@
-# Rechner für österreichische Familienbeihilfe
+# family-allowance-calculator
+
+[![.NET](https://github.com/VanDulti/family-allowance-calculator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/VanDulti/family-allowance-calculator/actions/workflows/dotnet.yml)
+<!--[![Lint Code Base](https://github.com/VanDulti/family-allowance-calculator/actions/workflows/super-linter.yml/badge.svg)](https://github.com/VanDulti/family-allowance-calculator/actions/workflows/super-linter.yml)-->
+[![Publish & Deploy to Github Pages](https://github.com/VanDulti/family-allowance-calculator/actions/workflows/pages.yml/badge.svg)](https://github.com/VanDulti/family-allowance-calculator/actions/workflows/pages.yml)
 
 Quick-&-Dirty-made Tool, um das effektive Einkommen bei Bezug von Familienbeihilfe unter Berücksichtigung der Zuverdienstgrenze (und potenzieller Rückzahlungen) für Teilzeitangestellte zu berechnen.
 
