@@ -10,7 +10,7 @@ Einfaches Tool, um das effektive Einkommen bei Bezug von Familienbeihilfe unter 
 
 Keine Gewähr auf Richtigkeit.
 
-Es liefert keine Steuerberatung und ersetzt keine Beratung durch eine Steuerberaterin oder einen Steuerberater.
+Das Tool liefert keine Steuerberatung und ersetzt keine Beratung durch eine Steuerberaterin oder einen Steuerberater.
 Alle Werte sind ohne Gewähr und können von den tatsächlichen Beträgen abweichen.
 Ich übernehme keine Verantwortung dafür, dass die Berechnungen richtig oder vollständig sind.
 Für eine genaue Berechnung deiner persönlichen Situation wende dich bitte an
