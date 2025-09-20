@@ -1,0 +1,170 @@
+﻿@page "/"
+@using FamilyAllowanceCalculator.Models
+
+<PageTitle>Rechner für österreichische Familienbeihilfe</PageTitle>
+
+<h1>Rechner für österreichische Familienbeihilfe</h1>
+
+<section>
+    <ul class="text-sm-start">
+        <li>Quick- & Dirty-made Tool, um das effektive Einkommen bei Bezug von Familienbeihilfe unter Berücksichtigung
+            der
+            Zuverdienstgrenze (und potentieller Rückzahlungen) für Teilzeitangestellte zu berechnen.
+        </li>
+        <li>Aktuell werden lediglich die Werte für 2025 unterstützt.</li>
+        <li>Sonderzahlungen hab ich approximiert (erstaunlich genau).</li>
+        <li>Es wird keine vollständige Lohn-/Gehaltsverrechnung durchgeführt.
+            Das Tool dient mir dazu, ungefähr zu wissen wie viel ich verdienen kann, ohne die Familienbeihilfe zu
+            verlieren - diese Rechnung kann aber stark von der Realität abweichen.
+        </li>
+    </ul>
+
+    <h3>Disclaimer ⚠️</h3>
+
+    Dieses Tool ist nur als unverbindliche Hilfe gedacht.
+    Es liefert keine Steuerberatung und ersetzt keine Beratung durch eine Steuerberaterin oder einen Steuerberater.
+    Alle Werte sind ohne Gewähr und können von den tatsächlichen Beträgen abweichen.
+    Ich übernehme keine Verantwortung dafür, dass die Berechnungen richtig oder vollständig sind.
+    Für eine genaue Berechnung deiner persönlichen Situation wende dich bitte an eine Steuerberaterin, einen
+    Steuerberater oder das Finanzamt.
+</section>
+
+<section>
+    <h2>Eingaben</h2>
+    <fieldset>
+        <legend>Arbeitszeit</legend>
+        <div>
+            <label>Vollzeit (Stunden/Woche):</label>
+            <InputNumber @bind-Value="Model.HoursFulltime" @bind-Value:format="F2" min="1" step="1"/>
+        </div>
+        <div>
+            <label>Teilzeit (Stunden/Woche):</label>
+            <InputNumber @bind-Value="Model.HoursParttime" @bind-Value:format="F2" min="1" step="1"/>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Brutto-Einkommen</legend>
+        <div>
+            <label>Vollzeit (mtl.):</label>
+            <InputNumber @bind-Value="Model.GrossSalaryFulltimeMonthly" @bind-Value:format="F2" min="1" step="1"/>
+        </div>
+        <div>
+            <label>Teilzeit (mtl.):</label>
+            <InputNumber @bind-Value="Model.GrossSalaryParttimeMonthly" @bind-Value:format="F2"
+                         class="gross-salary-parttime-monthly"
+                         type="number" min="1" step="1"/>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Familienbeihilfe</legend>
+        <div>
+            <label>Familienbeihilfe (mtl.):</label>
+            <InputNumber @bind-Value="Model.FamilyAllowanceMonthly" @bind-Value:format="F2"
+                         class="family-allowance-monthly" type="number"/>
+        </div>
+        <div>
+            <label>Zuverdienstgrenze:</label>
+            <InputNumber @bind-Value="Model.FamilyAllowanceLimit" @bind-Value:format="F2" class="family-allowance-limit"
+                         type="number" min="0"
+                         step="100"/>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Sozialversicherungssätze</legend>
+        <details>
+            <summary>Details anzeigen</summary>
+            <div>
+                <label>Krankenversicherung:</label>
+                <InputNumber @bind-Value="Model.SocialSecurityKrankenversicherung" @bind-Value:format="F2" type="number"
+                             min="0" max="100"
+                             step="1"/>
+            </div>
+            <div>
+                <label>Unfallversicherung:</label>
+                <InputNumber @bind-Value="Model.SocialSecurityUnfallversicherung" @bind-Value:format="F2" type="number"
+                             min="0" max="100"
+                             step="1"/>
+            </div>
+            <div>
+                <label>Pensionsversicherung:</label>
+                <InputNumber @bind-Value="Model.SocialSecurityPensionsversicherung" @bind-Value:format="F2"
+                             type="number" min="0" max="100"
+                             step="1"/>
+            </div>
+            <div>
+                <label>Arbeitslosenversicherung:</label>
+                <InputNumber @bind-Value="Model.SocialSecurityArbeitslosenversicherung" @bind-Value:format="F2"
+                             type="number" min="0" max="100"
+                             step="1"/>
+            </div>
+            <div>
+                <label>AK-Umlage:</label>
+                <InputNumber @bind-Value="Model.SocialSecurityAkumlage" @bind-Value:format="F2" type="number" min="0"
+                             max="100" step="1"/>
+            </div>
+            <div>
+                <label>Wohnbauförderungsbeitrag:</label>
+                <InputNumber @bind-Value="Model.SocialSecurityWohnbaufoerderungsbeitrag" @bind-Value:format="F2"
+                             type="number" min="0" max="100"
+                             step="1"/>
+            </div>
+        </details>
+    </fieldset>
+    <fieldset>
+        <legend>Werbungskosten</legend>
+        <div>
+            <label>Werbungskosten:</label>
+            <InputNumber @bind-Value="Model.AllowableExpenses" @bind-Value:format="F2" class="allowable-expenses"
+                         type="number" min="0"
+                         step="100"/>
+        </div>
+    </fieldset>
+</section>
+
+<section>
+    <h2>Berechnungsergebnisse</h2>
+    <fieldset>
+        <legend>Sozialversicherung</legend>
+        <p>SV-Beitrag (mtl.): @Model.SocialSecurityMonthly.ToString("F2")</p>
+        <p>SV-Beitrag (12 Monate): @Model.SocialSecurity12X.ToString("F2")</p>
+    </fieldset>
+    <fieldset>
+        <legend>Einkommen</legend>
+        <p>Steuerpflichtiges Einkommen (12 Monate):
+            @if (Model.FamilyAllowanceToBePaidBack > 0)
+            {
+                <span class="text-danger">@Model.TaxableIncome12X.ToString("F2")</span>
+            }
+            else
+            {
+                <span class="text-success">@Model.TaxableIncome12X.ToString("F2")</span>
+            }
+        </p>
+        <p>Einkommenssteuer (12 Monate): @Model.IncomeTax12X.ToString("F2")</p>
+        <p>Netto (mtl.): @Model.NetSalaryMonthly.ToString("F2")</p>
+        <p>Netto (12 Monate): @Model.NetSalary12X.ToString("F2")</p>
+        <p>Netto (14 Monate): @Model.NetSalary14X.ToString("F2")</p>
+    </fieldset>
+    <fieldset>
+        <legend>Familienbeihilfe</legend>
+        <p>Familienbeihilfe (12 Monate): @Model.FamilyAllowance12X.ToString("F2")</p>
+        @if (Model.FamilyAllowanceToBePaidBack > 0)
+        {
+            <p>Familienbeihilfe zurückzubezahlen: <span class="text-danger">@Model.FamilyAllowanceToBePaidBack</span>
+            </p>
+        }
+        else
+        {
+            <p>Familienbeihilfe zurückzubezahlen: <span class="text-success">0.00</span></p>
+        }
+    </fieldset>
+    <fieldset>
+        <legend>Effektives Einkommen</legend>
+        <p>Netto effektiv (14 Monate): <span class="text-info">@Model.EffectiveNetSalary14X.ToString("F2")</span></p>
+        <p>Stundenlohn (mit FBH): <span class="text-info">@Model.EffectiveNetHourly.ToString("F2")</span></p>
+    </fieldset>
+</section>
+
+@code {
+    private FamilyAllowanceModel Model { get; } = new();
+}
