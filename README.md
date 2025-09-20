@@ -13,7 +13,7 @@ Quick-&-Dirty-made Tool, um das effektive Einkommen bei Bezug von Familienbeihil
   ohne die Familienbeihilfe zu verlieren – diese Rechnung kann aber stark  
   von der Realität abweichen.
 
-## Disclaimer ⚠️
+## Disclaimer
 
 Dieses Tool ist nur als unverbindliche Hilfe gedacht.
 Es liefert keine Steuerberatung und ersetzt keine Beratung durch eine Steuerberaterin oder einen Steuerberater.
