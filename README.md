@@ -9,6 +9,7 @@ Einfaches Tool, um das effektive Einkommen bei Bezug von Familienbeihilfe unter 
 ## Disclaimer
 
 Keine Gewähr auf Richtigkeit.
+
 Es liefert keine Steuerberatung und ersetzt keine Beratung durch eine Steuerberaterin oder einen Steuerberater.
 Alle Werte sind ohne Gewähr und können von den tatsächlichen Beträgen abweichen.
 Ich übernehme keine Verantwortung dafür, dass die Berechnungen richtig oder vollständig sind.
@@ -24,4 +25,6 @@ eine Steuerberaterin / einen Steuerberater oder das Finanzamt.
 
 ## Tech
 
-Blazor WebAssembly (.NET 9) mit Bootstrap; Blazor WebAssembly, um sie auf GitHub Pages als Static Site hosten zu können.
+Blazor WebAssembly (.NET 9) mit Bootstrap
+
+Blazor WebAssembly, um sie auf GitHub Pages als Static Site hosten zu können.
